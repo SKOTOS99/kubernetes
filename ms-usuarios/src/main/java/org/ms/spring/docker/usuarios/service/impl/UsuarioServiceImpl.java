@@ -40,16 +40,15 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Transactional()
     public void eliminar(Long id) {
         repository.deleteById(id);
-
     }
 
     @Override
-    public Optional<UsuarioEntity> actualizarUsuario(UsuarioEntity usuario, Long id) {
+    public Optional<UsuarioEntity> actualizarUsuario(UsuarioEntity usuarioUpd, Long id) {
         return repository.findById(id).map(
                 usr -> {
-                    usr.setEmail(usuario.getEmail());
-                    usr.setNombre(usuario.getNombre());
-                    usr.setPassword(usuario.getPassword());
+                    usr.setEmail(usuarioUpd.getEmail());
+                    usr.setNombre(usuarioUpd.getNombre());
+                    usr.setPassword(usuarioUpd.getPassword());
                     return repository.save(usr);
                 });
     }

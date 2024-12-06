@@ -42,8 +42,13 @@ public class UsuariosController {
 
     @DeleteMapping(value = "/eliminar/usuario/{id}")
     public ResponseEntity<String> eliminarUsuario(@PathVariable Long id){
-        service.eliminar(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        Optional<UsuarioEntity> usuario = service.buscarId(id);
+        if(usuario.isPresent()){
+            service.eliminar(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PutMapping(value = "/actualizar/usuario/{id}")
