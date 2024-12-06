@@ -42,4 +42,17 @@ public class UsuarioServiceImpl implements UsuarioService {
         repository.deleteById(id);
 
     }
+
+    @Override
+    public Optional<UsuarioEntity> actualizarUsuario(UsuarioEntity usuario, Long id) {
+        return repository.findById(id).map(
+                usr -> {
+                    usr.setEmail(usuario.getEmail());
+                    usr.setNombre(usuario.getNombre());
+                    usr.setPassword(usuario.getPassword());
+                    return repository.save(usr);
+                });
+    }
+
+
 }

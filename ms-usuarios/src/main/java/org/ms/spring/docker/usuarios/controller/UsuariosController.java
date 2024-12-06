@@ -32,7 +32,7 @@ public class UsuariosController {
         Optional<UsuarioEntity> usuario = service.buscarId(id);
         return usuario.map(usuarioEntity ->
                 new ResponseEntity<>(usuarioEntity, HttpStatus.OK)).orElseGet(() ->
-                new ResponseEntity<>(null, HttpStatus.NOT_FOUND));
+                new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping(value = "/guardar/usuario")
@@ -44,6 +44,15 @@ public class UsuariosController {
     public ResponseEntity<String> eliminarUsuario(@PathVariable Long id){
         service.eliminar(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/actualizar/usuario/{id}")
+    public ResponseEntity<UsuarioEntity> actualizarUsuario(@PathVariable Long id,
+                                                           @RequestBody UsuarioEntity usuario){
+        Optional<UsuarioEntity> usuarioActualizado = service.actualizarUsuario(usuario, id);
+        return usuarioActualizado.map(usuarioEntity ->
+                new ResponseEntity<>(usuarioEntity, HttpStatus.OK)).orElseGet(() ->
+                new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
 }

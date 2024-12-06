@@ -15,4 +15,6 @@ public interface UsuarioService {
 
     void eliminar(Long id);
 
+    Optional<UsuarioEntity> actualizarUsuario(UsuarioEntity usuario, Long id);
+
 }
