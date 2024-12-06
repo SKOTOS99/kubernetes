@@ -72,6 +72,7 @@ ehthumbs.db
 .springBeans
 .sts4-cache
 /ms-usuarios/.mvn/
+/ms-usuarios/.mvn/wrapper
 /ms-usuarios/.classpath
 /ms-usuarios/.gitattributes
 /ms-usuarios/mvnw.cmd
