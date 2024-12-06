@@ -63,3 +63,17 @@ ehthumbs.db
 *.o
 *.so
 *.project
+
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+/ms-usuarios/.mvn/
+/ms-usuarios/.classpath
+/ms-usuarios/.gitattributes
+/ms-usuarios/mvnw.cmd
+/ms-usuarios/mvnw
+
