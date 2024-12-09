@@ -30,7 +30,7 @@ public class CursosController {
          return new ResponseEntity<>(cursos, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/listar/cusos/{id}")
+    @GetMapping(value = "/listar/cursos/{id}")
     public ResponseEntity<CursoEntity> getPorId(@PathVariable Long id){
         Optional<CursoEntity> curso = service.porId(id);
         return curso.map(c -> new ResponseEntity<>(c,HttpStatus.OK))
