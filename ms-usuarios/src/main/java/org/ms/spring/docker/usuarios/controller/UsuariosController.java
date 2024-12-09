@@ -44,12 +44,13 @@ public class UsuariosController {
     @PostMapping(value = "/guardar/usuario")
     public ResponseEntity<?> guardarUsuario(@Valid @RequestBody UsuarioEntity usuario, BindingResult result){
         boolean usuarioExiste = service.existePorEmail(usuario.getEmail());
-        if(usuarioExiste){
-            return new ResponseEntity<>(Collections.singletonMap("error","El email ya se encuentra registrado"),HttpStatus.BAD_REQUEST);
-        }
         if(result.hasErrors()){
             return errorsValid.getMapResponseEntity(result);
         }
+        if(usuarioExiste){
+            return new ResponseEntity<>(Collections.singletonMap("error","El email ya se encuentra registrado"),HttpStatus.BAD_REQUEST);
+        }
+
         return new ResponseEntity<>(service.guardarUsuario(usuario), HttpStatus.OK);
     }
 
