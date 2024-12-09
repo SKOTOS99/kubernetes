@@ -19,4 +19,6 @@ public interface UsuarioService {
 
     Optional<UsuarioEntity> buscarEmail(String email);
 
+    boolean existePorEmail(String email);
+
 }

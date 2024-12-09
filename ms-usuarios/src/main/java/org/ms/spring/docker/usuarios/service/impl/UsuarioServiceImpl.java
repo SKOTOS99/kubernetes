@@ -56,6 +56,12 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public Optional<UsuarioEntity> buscarEmail(String email) {
-        return repository.findByEmail(email);
+
+        return repository.porEmail(email);
+    }
+
+    @Override
+    public boolean existePorEmail(String email) {
+        return repository.existsByEmail(email);
     }
 }
