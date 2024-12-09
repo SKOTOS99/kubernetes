@@ -17,4 +17,6 @@ public interface UsuarioService {
 
     Optional<UsuarioEntity> actualizarUsuario(UsuarioEntity usuario, Long id);
 
+    Optional<UsuarioEntity> buscarEmail(String email);
+
 }

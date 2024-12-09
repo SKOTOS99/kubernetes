@@ -12,10 +12,7 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping(value = "/api")
@@ -46,6 +43,10 @@ public class UsuariosController {
 
     @PostMapping(value = "/guardar/usuario")
     public ResponseEntity<?> guardarUsuario(@Valid @RequestBody UsuarioEntity usuario, BindingResult result){
+        Optional<UsuarioEntity> usuarioExiste = service.buscarEmail(usuario.getEmail());
+        if(usuarioExiste.isPresent()){
+            return new ResponseEntity<>(Collections.singletonMap("error","El email ya se encuentra registrado"),HttpStatus.BAD_REQUEST);
+        }
         if(result.hasErrors()){
             return errorsValid.getMapResponseEntity(result);
         }
@@ -66,16 +67,25 @@ public class UsuariosController {
     }
 
     @PutMapping(value = "/actualizar/usuario/{id}")
-    public ResponseEntity<?> actualizarUsuario(@Valid @PathVariable Long id,
-                                                           @RequestBody UsuarioEntity usuario, BindingResult result){
-        if(result.hasErrors()){
+    public ResponseEntity<?> actualizarUsuario(
+            @Valid @PathVariable Long id,
+            @RequestBody UsuarioEntity usuario,
+            BindingResult result) {
+
+        if (result.hasErrors()) {
             return errorsValid.getMapResponseEntity(result);
         }
-        Optional<UsuarioEntity> usuarioActualizado = service.actualizarUsuario(usuario, id);
-        return usuarioActualizado.map(usuarioEntity ->
-                new ResponseEntity<>(usuarioEntity, HttpStatus.OK)).orElseGet(() ->
-                new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        Optional<UsuarioEntity> usuarioExiste = service.buscarEmail(usuario.getEmail());
+        if (usuarioExiste.isPresent() && !usuarioExiste.get().getId().equals(id)) {
+            return ResponseEntity.badRequest()
+                    .body(Collections.singletonMap("Error", "Ese correo ya está registrado"));
+        }
+
+        return service.actualizarUsuario(usuario, id)
+                .map(usuarioActualizado -> new ResponseEntity<>(usuarioActualizado, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
+
 
 
 

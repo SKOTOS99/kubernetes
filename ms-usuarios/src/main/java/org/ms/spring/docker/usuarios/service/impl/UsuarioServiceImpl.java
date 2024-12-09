@@ -46,6 +46,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     public Optional<UsuarioEntity> actualizarUsuario(UsuarioEntity usuarioUpd, Long id) {
         return repository.findById(id).map(
                 usr -> {
+
                     usr.setEmail(usuarioUpd.getEmail());
                     usr.setNombre(usuarioUpd.getNombre());
                     usr.setPassword(usuarioUpd.getPassword());
@@ -53,5 +54,8 @@ public class UsuarioServiceImpl implements UsuarioService {
                 });
     }
 
-
+    @Override
+    public Optional<UsuarioEntity> buscarEmail(String email) {
+        return repository.findByEmail(email);
+    }
 }
