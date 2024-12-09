@@ -77,4 +77,10 @@ ehthumbs.db
 /ms-usuarios/.gitattributes
 /ms-usuarios/mvnw.cmd
 /ms-usuarios/mvnw
+/ms-cursos/mvnw
 
+/ms-cursos/mvnw.cmd
+/ms-cursos/.mvn/
+/ms-cursos/.mvn
+/ms-cursos/HELP.md
+/ms-cursos/.gitattributes

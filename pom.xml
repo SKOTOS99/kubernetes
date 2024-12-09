@@ -13,6 +13,7 @@
   <name>curso-kubernetes</name>
   <modules>
 	<module>ms-usuarios</module>
+      <module>ms-cursos</module>
   </modules>
   
 </project>
