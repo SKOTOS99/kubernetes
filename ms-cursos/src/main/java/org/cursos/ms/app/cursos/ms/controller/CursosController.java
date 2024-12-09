@@ -2,15 +2,20 @@ package org.cursos.ms.app.cursos.ms.controller;
 
 
 import jakarta.annotation.PreDestroy;
+import jakarta.validation.Valid;
 import org.cursos.ms.app.cursos.ms.model.entity.CursoEntity;
 import org.cursos.ms.app.cursos.ms.service.CursoService;
+import org.cursos.ms.app.cursos.ms.validate.ValidateErrors;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.swing.text.html.Option;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -19,8 +24,11 @@ public class CursosController {
 
     private final CursoService service;
 
-     public CursosController(CursoService service) {
+    private final ValidateErrors errorsValid;
+
+     public CursosController(CursoService service, ValidateErrors errorsValid) {
          this.service = service;
+         this.errorsValid = errorsValid;
     }
 
     @GetMapping(value = "/listar/cursos")
@@ -38,7 +46,11 @@ public class CursosController {
     }
 
     @PostMapping(value = "/guardar/curso")
-    public ResponseEntity<CursoEntity> guardarCurso(@RequestBody CursoEntity curso){
+    public ResponseEntity<?> guardarCurso(@Valid @RequestBody CursoEntity curso, BindingResult result){
+        if(result.hasErrors()){
+            return errorsValid.getMapResponseEntity(result);
+        }
+
          return new ResponseEntity<>(service.guardarCurso(curso), HttpStatus.OK);
     }
 
@@ -55,10 +67,15 @@ public class CursosController {
     }
 
     @PutMapping(value = "/actualizar/curso/{id}")
-    public ResponseEntity<CursoEntity> actualizarCurso( @PathVariable Long id,
-                                                        @RequestBody CursoEntity curso){
-        Optional<CursoEntity> cursos = service.actualizarCurso(id,curso);
+    public ResponseEntity<?> actualizarCurso( @Valid @PathVariable Long id,
+                                                        @RequestBody CursoEntity curso, BindingResult result){
+        if(result.hasErrors()){
+            return errorsValid.getMapResponseEntity(result);
+        }
+         Optional<CursoEntity> cursos = service.actualizarCurso(id,curso);
         return cursos.map(cur -> new ResponseEntity<>(cur, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
+
 }
