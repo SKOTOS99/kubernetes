@@ -1,6 +1,7 @@
 package org.cursos.ms.app.cursos.ms.service;
 
 
+import org.cursos.ms.app.cursos.ms.model.Usuario;
 import org.cursos.ms.app.cursos.ms.model.entity.CursoEntity;
 
 import java.util.List;
@@ -13,4 +14,7 @@ public interface CursoService {
     CursoEntity guardarCurso(CursoEntity curso);
     void eliminarCurso(Long id);
     Optional<CursoEntity> actualizarCurso(Long id, CursoEntity curso);
+
+
+
 }
