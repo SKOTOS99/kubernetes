@@ -1,11 +1,13 @@
 package org.ms.spring.docker.usuarios.service.impl;
 
+import org.ms.spring.docker.usuarios.client.FeignClientCursos;
 import org.ms.spring.docker.usuarios.models.entity.UsuarioEntity;
 import org.ms.spring.docker.usuarios.repository.UsuarioRepository;
 import org.ms.spring.docker.usuarios.service.UsuarioService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,9 +15,11 @@ import java.util.Optional;
 public class UsuarioServiceImpl implements UsuarioService {
 
     private final UsuarioRepository repository;
+    private final FeignClientCursos client;
 
-    public UsuarioServiceImpl(UsuarioRepository repository){
+    public UsuarioServiceImpl(UsuarioRepository repository, FeignClientCursos client){
         this.repository = repository;
+        this.client = client;
     }
 
     @Override
@@ -39,7 +43,9 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     @Transactional()
     public void eliminar(Long id) {
+
         repository.deleteById(id);
+        client.eliminarUsuaroCurso(id);
     }
 
     @Override
@@ -64,4 +70,11 @@ public class UsuarioServiceImpl implements UsuarioService {
     public boolean existePorEmail(String email) {
         return repository.existsByEmail(email);
     }
+
+    @Override
+    public List<UsuarioEntity> listarPorIds(Iterable<Long> ids) {
+        return (List<UsuarioEntity>) repository.findAllById(ids);
+    }
+
+
 }

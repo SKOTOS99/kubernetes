@@ -6,10 +6,12 @@ import org.cursos.ms.app.cursos.ms.model.entity.CursoEntity;
 import org.cursos.ms.app.cursos.ms.model.entity.CursoUsuarioEntity;
 import org.cursos.ms.app.cursos.ms.reporsitory.CursosRespository;
 import org.cursos.ms.app.cursos.ms.service.CursoUsuariosService;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+@Service
 public class CursoUsuariosServiceImpl implements CursoUsuariosService {
 
     private final CursosRespository respository;

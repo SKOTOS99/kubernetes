@@ -14,6 +14,8 @@ public interface CursoService {
     CursoEntity guardarCurso(CursoEntity curso);
     void eliminarCurso(Long id);
     Optional<CursoEntity> actualizarCurso(Long id, CursoEntity curso);
+    Optional<CursoEntity> porIdUsuarios(Long id);
+    void eliminarCursoUsuarioPorId(Long id);
 
 
 

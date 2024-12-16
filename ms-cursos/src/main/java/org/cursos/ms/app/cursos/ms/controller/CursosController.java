@@ -77,5 +77,18 @@ public class CursosController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @GetMapping(value = "/listar/cursos/ussuarios/{id}")
+    public ResponseEntity<CursoEntity> getPorUsuariosId(@PathVariable Long id){
+        Optional<CursoEntity> curso = service.porIdUsuarios(id);
+        return curso.map(c -> new ResponseEntity<>(c,HttpStatus.OK))
+                .orElseGet(()-> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @DeleteMapping(value = "/eliminar/curso/usuario/{id}")
+    public ResponseEntity<?> eliminarUsuarioCurso(@PathVariable Long id){
+        service.eliminarCursoUsuarioPorId(id);
+         return ResponseEntity.noContent().build();
+    }
+
 
 }

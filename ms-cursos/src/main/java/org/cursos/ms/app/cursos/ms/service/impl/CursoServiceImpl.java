@@ -1,6 +1,9 @@
 package org.cursos.ms.app.cursos.ms.service.impl;
 
+import org.cursos.ms.app.cursos.ms.client.FeigClientUsuariosMs;
+import org.cursos.ms.app.cursos.ms.model.Usuario;
 import org.cursos.ms.app.cursos.ms.model.entity.CursoEntity;
+import org.cursos.ms.app.cursos.ms.model.entity.CursoUsuarioEntity;
 import org.cursos.ms.app.cursos.ms.reporsitory.CursosRespository;
 import org.cursos.ms.app.cursos.ms.service.CursoService;
 import org.springframework.stereotype.Service;
@@ -13,8 +16,11 @@ import java.util.Optional;
 public class CursoServiceImpl implements CursoService {
     private final CursosRespository repo;
 
-    public CursoServiceImpl(CursosRespository repo){
+    private final FeigClientUsuariosMs client;
+
+    public CursoServiceImpl(CursosRespository repo, FeigClientUsuariosMs client){
         this.repo = repo;
+        this.client = client;
     }
 
     @Override
@@ -50,6 +56,28 @@ public class CursoServiceImpl implements CursoService {
             return repo.save(curso1);
         });
 
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<CursoEntity> porIdUsuarios(Long id) {
+        Optional<CursoEntity> detalleCurso = repo.findById(id);
+        if (detalleCurso.isPresent()){
+            CursoEntity curso = detalleCurso.get();
+            if (!curso.getCursoUsuarios().isEmpty()){
+                List<Long> ids = curso.getCursoUsuarios().stream().map(CursoUsuarioEntity::getUsuarioId).toList();
+                List<Usuario> usuarios = client.listarPorIds(ids);
+                curso.setUsuarios(usuarios);
+            }
+            return Optional.of(curso);
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    @Transactional
+    public void eliminarCursoUsuarioPorId(Long id) {
+        repo.eliminarCursoUsuarioPorId(id);
     }
 
 }

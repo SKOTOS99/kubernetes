@@ -87,4 +87,9 @@ public class UsuariosController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
+    @GetMapping(value = "/usuarios-curso")
+    public ResponseEntity<?> alumnosPorCurso(@RequestParam List<Long> ids){
+        return ResponseEntity.ok(service.listarPorIds(ids));
+    }
+
 }

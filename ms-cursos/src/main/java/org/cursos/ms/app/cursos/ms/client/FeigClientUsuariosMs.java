@@ -5,6 +5,8 @@ import org.cursos.ms.app.cursos.ms.model.Usuario;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @FeignClient(name = "ms-usuarios", url = "localhost:8001")
 public interface FeigClientUsuariosMs {
 
@@ -16,5 +18,8 @@ public interface FeigClientUsuariosMs {
 
     @DeleteMapping(value = "/api/eliminar/usuario/{id}")
     void eliminarUsuario(@PathVariable Long id);
+
+    @GetMapping(value = "/api/usuarios-curso")
+    List<Usuario> listarPorIds(@RequestParam Iterable<Long> ids);
 
 }
