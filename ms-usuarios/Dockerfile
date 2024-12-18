@@ -1,14 +1,17 @@
-# Imagen base de OpenJDK
 FROM openjdk:21-jdk-slim
 
-# Crear directorio de trabajo
-WORKDIR /app
+WORKDIR /app/ms-usuarios
 
-# Copiar el JAR generado por Maven
-COPY ./target/*.jar app.jar
+COPY ./pom.xml /app
+COPY ./ms-usuarios/.mvn ./.mvn
+COPY ./ms-usuarios/mvnw .
+COPY ./ms-usuarios/pom.xml .
 
-# Exponer el puerto donde Spring Boot ejecutará la API
+
+RUN ./mvnw clean package -Dmaven.test.skip -Dmaven.main.skip -Dspring-boot.repackage.skip && rm -r ./target/
+COPY ./ms-usuarios/src ./src
+RUN ./mvnw clean package
+
 EXPOSE 8001
 
-# Comando para ejecutar la aplicación
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "./target/ms-usuarios-0.0.1-SNAPSHOT.jar"]

@@ -79,7 +79,7 @@ public class UsuariosController {
         Optional<UsuarioEntity> usuarioExiste = service.buscarEmail(usuario.getEmail());
         if (usuarioExiste.isPresent() && !usuarioExiste.get().getId().equals(id)) {
             return ResponseEntity.badRequest()
-                    .body(Collections.singletonMap("Error", "Ese correo ya está registrado"));
+                    .body(Collections.singletonMap("!!!Error", "Ese correo ya está registrado"));
         }
 
         return service.actualizarUsuario(usuario, id)
