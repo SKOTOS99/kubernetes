@@ -1,4 +1,4 @@
-FROM openjdk:21-jdk-slim
+FROM openjdk:21-jdk-slim AS builder
 
 WORKDIR /app/ms-usuarios
 
@@ -12,6 +12,11 @@ RUN ./mvnw clean package -Dmaven.test.skip -Dmaven.main.skip -Dspring-boot.repac
 COPY ./ms-usuarios/src ./src
 RUN ./mvnw clean package
 
+FROM openjdk:21-jdk-slim
+WORKDIR /app
+RUN mkdir ./logs
+COPY --from=builder /app/ms-usuarios/target/ms-usuarios-0.0.1-SNAPSHOT.jar .
 EXPOSE 8001
 
-ENTRYPOINT ["java", "-jar", "./target/ms-usuarios-0.0.1-SNAPSHOT.jar"]
+#ENTRYPOINT ["java", "-jar", "ms-usuarios-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "ms-usuarios-0.0.1-SNAPSHOT.jar"]
