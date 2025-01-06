@@ -1,23 +1,26 @@
 FROM openjdk:21-jdk-slim AS builder
-
-WORKDIR /app/ms-usuarios
+ARG APP_NAME=ms-usuarios
+WORKDIR /app/$APP_NAME
 
 COPY ./pom.xml /app
-COPY ./ms-usuarios/.mvn ./.mvn
-COPY ./ms-usuarios/mvnw .
-COPY ./ms-usuarios/pom.xml .
+COPY ./$APP_NAME/.mvn ./.mvn
+COPY ./$APP_NAME/mvnw .
+COPY ./$APP_NAME/pom.xml .
 
 
 
 RUN ./mvnw clean package -Dmaven.test.skip -Dmaven.main.skip -Dspring-boot.repackage.skip && rm -r ./target/
-COPY ./ms-usuarios/src ./src
+COPY ./$APP_NAME/src ./src
 RUN ./mvnw clean package
 
 FROM openjdk:21-jdk-slim
 WORKDIR /app
 RUN mkdir ./logs
-COPY --from=builder /app/ms-usuarios/target/ms-usuarios-0.0.1-SNAPSHOT.jar .
-ENV PORT=8001
+ARG APP_NAME=ms-usuarios
+ARG TARGET_PATH=/app/$APP_NAME/target
+COPY --from=builder $TARGET_PATH/$APP_NAME-0.0.1-SNAPSHOT.jar .
+ARG PORT_APP=8001
+ENV PORT=$PORT_APP
 EXPOSE $PORT
 
 ENTRYPOINT ["java", "-jar", "ms-usuarios-0.0.1-SNAPSHOT.jar"]
