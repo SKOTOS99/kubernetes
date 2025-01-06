@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(name = "ms-usuarios", url = "ms-usuarios:8001")
+@FeignClient(name = "ms-usuarios", url = "${app.usuarios.url}")
 public interface FeigClientUsuariosMs {
 
     @GetMapping(value = "/api/listar/id/{id}")
