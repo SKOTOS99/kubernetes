@@ -1,5 +1,7 @@
-FROM openjdk:21-jdk-slim AS builder
 ARG APP_NAME=ms-usuarios
+FROM openjdk:21-jdk-slim AS builder
+
+ARG APP_NAME
 WORKDIR /app/$APP_NAME
 
 COPY ./pom.xml /app
@@ -14,9 +16,10 @@ COPY ./$APP_NAME/src ./src
 RUN ./mvnw clean package
 
 FROM openjdk:21-jdk-slim
+ARG APP_NAME
 WORKDIR /app
 RUN mkdir ./logs
-ARG APP_NAME=ms-usuarios
+
 ARG TARGET_PATH=/app/$APP_NAME/target
 COPY --from=builder $TARGET_PATH/$APP_NAME-0.0.1-SNAPSHOT.jar .
 ARG PORT_APP=8001
