@@ -1,0 +1,6 @@
+version: "3.9" #version en docker compose
+services:
+  mysql8:
+  postgres14:
+  ms-usuarios:
+  ms-cursos:
