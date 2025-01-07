@@ -25,7 +25,25 @@ services:
     networks:
       - dev-local
   ms-usuarios:
+    image: ms-usuarios-img
+    ports:
+      - "8001:8001"
+    env_file: ./ms-usuarios/.env
+    networks:
+      - dev-local
+    depends_on:
+      - mysql8
+    restart: always
   ms-cursos:
+    image: ms-cursos-img
+    ports:
+      - "8002:8002"
+    env_file: ./ms-cursos/.env
+    networks:
+      - dev-local
+    depends_on:
+      - postgres14
+    restart: always
 
 
 volumes:
