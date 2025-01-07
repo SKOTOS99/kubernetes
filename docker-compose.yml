@@ -1,6 +1,20 @@
 version: "3.9" #version en docker compose
 services:
   mysql8:
+    image: mysql:8
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD= 1428
+      - MYSQL_DATABASE= ms_usuarios_db
+    volumes:
+      - data-mysql:/var/lib/mysql
+    restart: always
+    networks:
+      - dev-local
   postgres14:
   ms-usuarios:
   ms-cursos:
+
+networks:
+  dev-local:
