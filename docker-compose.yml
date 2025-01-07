@@ -13,8 +13,23 @@ services:
     networks:
       - dev-local
   postgres14:
+    image: postgres:14-alpine
+    ports:
+      - "5532:5432"
+    environment:
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=db_cursos
+    volumes:
+      - data-postgres:/var/lib/postgresql/data
+    restart: always
+    networks:
+      - dev-local
   ms-usuarios:
   ms-cursos:
 
+
+volumes:
+  data-mysql:
+  data-postgres:
 networks:
   dev-local:
