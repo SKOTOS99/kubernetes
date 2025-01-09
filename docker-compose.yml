@@ -16,7 +16,7 @@ services:
       timeout: 5s
       retries: 5
     networks:
-      - dev-local
+      - dev-local-compose
   postgres14:
     container_name: postgres14
     image: postgres:14-alpine
@@ -29,31 +29,37 @@ services:
       - data-postgres:/var/lib/postgresql/data
     restart: always
     networks:
-      - dev-local
+      - dev-local-compose
   ms-usuarios:
     container_name: ms-usuarios
-    image: ms-usuarios-img
+    build:
+      context: ./
+      dockerfile: ./ms-usuarios/Dockerfile
     ports:
       - "8001:8001"
     env_file:
       - ./ms-usuarios/.env
     networks:
-      - dev-local
+      - dev-local-compose
     restart: always
     depends_on:
       mysql8:
         condition: service_healthy
   ms-cursos:
     container_name: ms-cursos
-    image: ms-cursos-img
+    build:
+      context: ./
+      dockerfile: ./ms-cursos/Dockerfile
+
     ports:
       - "8002:8002"
     env_file:
       - ./ms-cursos/.env
     networks:
-      - dev-local
+      - dev-local-compose
     depends_on:
       - postgres14
+      - ms-usuarios
     restart: always
 
 
@@ -63,6 +69,5 @@ volumes:
   data-postgres:
     name: data-postgres
 networks:
-  dev-local:
-    name: dev-local
-    external: true
+  dev-local-compose:
+    name: dev-local-compose
