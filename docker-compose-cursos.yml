@@ -1,0 +1,43 @@
+services:
+  postgres14:
+    container_name: postgres14
+    image: postgres:14-alpine
+    ports:
+      - "5532:5432"
+    environment:
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=db_cursos
+    volumes:
+      - data-postgres:/var/lib/postgresql/data
+    restart: always
+    networks:
+      - dev-local-compose
+  ms-cursos:
+    container_name: ms-cursos
+    image: jesusdevback95/cursos
+#    build:
+#      context: ./
+#      dockerfile: ./ms-cursos/Dockerfile
+
+    ports:
+      - "8002:8002"
+    environment:
+      PORT: 8002
+      DB_HOST: postgres14:5432
+      DB_DATABASE: db_cursos
+      DB_USER_NAME: postgres
+      DB_PASSWORD: 1234
+      USUARIOS_URL: ec2-18-202-79-168.eu-west-1.compute.amazonaws.com:8001
+    networks:
+      - dev-local-compose
+    depends_on:
+      - postgres14
+      - ms-usuarios
+    restart: always
+
+volumes:
+  data-postgres:
+    name: data-postgres
+networks:
+  dev-local-compose:
+    name: dev-local-compose
