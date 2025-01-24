@@ -5,6 +5,8 @@ import jakarta.validation.Valid;
 import org.ms.spring.docker.usuarios.models.entity.UsuarioEntity;
 import org.ms.spring.docker.usuarios.service.UsuarioService;
 import org.ms.spring.docker.usuarios.validate.ValidateErrors;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -22,9 +24,17 @@ public class UsuariosController {
 
     private final ValidateErrors errorsValid;
 
-    public UsuariosController(UsuarioService service, ValidateErrors errorsValid){
+    private final ApplicationContext context;
+
+    public UsuariosController(UsuarioService service, ValidateErrors errorsValid, ApplicationContext context){
         this.service = service;
         this.errorsValid = errorsValid;
+        this.context = context;
+    }
+
+    @GetMapping(value = "/break")
+    public void breakDummy(){
+        ((ConfigurableApplicationContext)context).close();
     }
 
     @GetMapping(value = "/listar")

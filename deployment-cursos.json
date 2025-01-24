@@ -1,0 +1,61 @@
+{
+    "kind": "Deployment",
+    "apiVersion": "apps/v1",
+    "metadata": {
+        "name": "ms-cursos"
+    },
+    "spec": {
+        "replicas": 1,
+        "selector": {
+            "matchLabels": {
+                "app": "ms-cursos"
+            }
+        },
+        "template": {
+            "metadata": {
+                "labels": {
+                    "app": "ms-cursos"
+                }
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "name": "cursos",
+                        "image": "jesusdevback95/cursos:latest",
+                        "ports": [
+                            {
+                                "containerPort": 8002
+                            }
+                        ],
+                        "env": [
+                            {
+                                "name": "PORT",
+                                "value": 8002
+                            },
+                            {
+                                "name": "DB_HOST",
+                                "value": "postgres14:5432"
+                            },
+                            {
+                                "name": "DB_DATABASE",
+                                "value": "db_cursos"
+                            },
+                            {
+                                "name": "DB_USER_NAME",
+                                "value": "postgres"
+                            },
+                            {
+                                "name": "DB_PASSWORD",
+                                "value": "1234"
+                            },
+                            {
+                                "name": "USUARIOS_URL",
+                                "value": "ms-usuarios:8001"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}
