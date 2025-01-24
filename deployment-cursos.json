@@ -30,7 +30,7 @@
                         "env": [
                             {
                                 "name": "PORT",
-                                "value": 8002
+                                "value": "8002"
                             },
                             {
                                 "name": "DB_HOST",
