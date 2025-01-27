@@ -31,7 +31,7 @@
                             {
                                 "name": "PORT",
                                 "valueFrom": {
-                                    "configMapKey": {
+                                    "configMapKeyRef": {
                                         "name": "ms-cursos",
                                         "key": "port"
                                     }
@@ -40,7 +40,7 @@
                             {
                                 "name": "DB_HOST",
                                 "valueFrom": {
-                                    "configMapKey": {
+                                    "configMapKeyRef": {
                                         "name": "ms-cursos",
                                         "key": "host"
                                     }
@@ -49,7 +49,7 @@
                             {
                                 "name": "DB_DATABASE",
                                 "valueFrom": {
-                                    "configMapKey": {
+                                    "configMapKeyRef": {
                                         "name": "ms-cursos",
                                         "key": "database"
                                     }
@@ -58,7 +58,7 @@
                             {
                                 "name": "DB_USER_NAME",
                                 "valueFrom": {
-                                    "configMapKey": {
+                                    "configMapKeyRef": {
                                         "name": "ms-cursos",
                                         "key": "username"
                                     }
@@ -67,7 +67,7 @@
                             {
                                 "name": "DB_PASSWORD",
                                 "valueFrom": {
-                                    "configMapKey": {
+                                    "configMapKeyRef": {
                                         "name": "ms-cursos",
                                         "key": "password"
                                     }
@@ -76,7 +76,7 @@
                             {
                                 "name": "USUARIOS_URL",
                                 "valueFrom": {
-                                    "configMapKey": {
+                                    "configMapKeyRef": {
                                         "name": "ms-cursos",
                                         "key": "api_usuarios"
                                     }
