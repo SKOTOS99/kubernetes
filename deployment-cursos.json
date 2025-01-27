@@ -30,27 +30,57 @@
                         "env": [
                             {
                                 "name": "PORT",
-                                "value": "8002"
+                                "valueFrom": {
+                                    "configMapKey": {
+                                        "name": "ms-cursos",
+                                        "key": "port"
+                                    }
+                                }
                             },
                             {
                                 "name": "DB_HOST",
-                                "value": "postgres14:5432"
+                                "valueFrom": {
+                                    "configMapKey": {
+                                        "name": "ms-cursos",
+                                        "key": "host"
+                                    }
+                                }
                             },
                             {
                                 "name": "DB_DATABASE",
-                                "value": "db_cursos"
+                                "valueFrom": {
+                                    "configMapKey": {
+                                        "name": "ms-cursos",
+                                        "key": "database"
+                                    }
+                                }
                             },
                             {
                                 "name": "DB_USER_NAME",
-                                "value": "postgres"
+                                "valueFrom": {
+                                    "configMapKey": {
+                                        "name": "ms-cursos",
+                                        "key": "username"
+                                    }
+                                }
                             },
                             {
                                 "name": "DB_PASSWORD",
-                                "value": "1234"
+                                "valueFrom": {
+                                    "configMapKey": {
+                                        "name": "ms-cursos",
+                                        "key": "password"
+                                    }
+                                }
                             },
                             {
                                 "name": "USUARIOS_URL",
-                                "value": "ms-usuarios:8001"
+                                "valueFrom": {
+                                    "configMapKey": {
+                                        "name": "ms-cursos",
+                                        "key": "api_usuarios"
+                                    }
+                                }
                             }
                         ]
                     }

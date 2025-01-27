@@ -30,11 +30,21 @@
             "env": [
               {
                 "name": "POSTGRES_PASSWORD",
-                "value": "1234"
+                "valueFrom": {
+                  "configMapKey": {
+                    "name": "ms-cursos",
+                    "key": "password"
+                  }
+                }
               },
               {
                 "name": "POSTGRES_DB",
-                "value": "db_cursos"
+                "valueFrom": {
+                  "configMapKey": {
+                    "name": "ms-cursos",
+                    "key": "database"
+                  }
+                }
               }
             ],
             "volumeMounts": [
