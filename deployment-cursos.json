@@ -58,7 +58,7 @@
                             {
                                 "name": "DB_USER_NAME",
                                 "valueFrom": {
-                                    "configMapKeyRef": {
+                                    "secretKeyRef": {
                                         "name": "ms-cursos",
                                         "key": "username"
                                     }
@@ -67,7 +67,7 @@
                             {
                                 "name": "DB_PASSWORD",
                                 "valueFrom": {
-                                    "configMapKeyRef": {
+                                    "secretKeyRef": {
                                         "name": "ms-cursos",
                                         "key": "password"
                                     }
