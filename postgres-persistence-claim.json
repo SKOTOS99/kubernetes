@@ -1,0 +1,19 @@
+{
+  "apiVersion": "v1",
+  "kind": "PersistentVolumeClaim",
+  "metadata": {
+    "name": "postgres-persistence-claim"
+  },
+  "spec": {
+    "volumeName": "postgres-persistence-volume",
+    "accessModes": [
+      "ReadWriteOnce"
+    ],
+    "storageClassName": "standard",
+    "resources": {
+      "requests": {
+        "storage": "2Gi"
+      }
+    }
+  }
+}
