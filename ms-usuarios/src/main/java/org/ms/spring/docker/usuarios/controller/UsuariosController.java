@@ -7,6 +7,7 @@ import org.ms.spring.docker.usuarios.service.UsuarioService;
 import org.ms.spring.docker.usuarios.validate.ValidateErrors;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -26,10 +27,14 @@ public class UsuariosController {
 
     private final ApplicationContext context;
 
-    public UsuariosController(UsuarioService service, ValidateErrors errorsValid, ApplicationContext context){
+    private Environment env;
+
+    public UsuariosController(UsuarioService service, ValidateErrors errorsValid, ApplicationContext context,
+                              Environment env){
         this.service = service;
         this.errorsValid = errorsValid;
         this.context = context;
+        this.env = env;
     }
 
     @GetMapping(value = "/break")
@@ -38,8 +43,11 @@ public class UsuariosController {
     }
 
     @GetMapping(value = "/listar")
-    public ResponseEntity<List<UsuarioEntity>> listarUsuarios(){
-        return new ResponseEntity<>(service.listar(), HttpStatus.OK);
+    public ResponseEntity<?> listarUsuarios(){
+        Map<String, Object> body = new HashMap<>();
+        body.put("usuarios", service.listar());
+        body.put("Name_Pod: ",env.getProperty("Name_pod") + ": " + env.getProperty("Pod_ip"));
+        return new ResponseEntity<>(body, HttpStatus.OK);
     }
 
     @GetMapping(value = "/listar/id/{id}")
