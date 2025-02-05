@@ -47,6 +47,7 @@ public class UsuariosController {
         Map<String, Object> body = new HashMap<>();
         body.put("usuarios", service.listar());
         body.put("Name_Pod: ",env.getProperty("Name_pod") + ": " + env.getProperty("Pod_ip"));
+        body.put("tesxto: ",env.getProperty("config.texto"));
         return new ResponseEntity<>(body, HttpStatus.OK);
     }
 
