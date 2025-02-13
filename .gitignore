@@ -84,3 +84,12 @@ ehthumbs.db
 /ms-cursos/.mvn
 /ms-cursos/HELP.md
 /ms-cursos/.gitattributes
+
+/ms-api-gateway/.mvn/
+/ms-api-gateway/.mvn/wrapper
+/ms-api-gateway/.classpath
+/ms-api-gateway/.gitattributes
+/ms-api-gateway/.gitignore
+/ms-api-gateway/mvnw.cmd
+/ms-api-gateway/mvnw
+/ms-api-gateway/mvnw
