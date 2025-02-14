@@ -93,3 +93,12 @@ ehthumbs.db
 /ms-api-gateway/mvnw.cmd
 /ms-api-gateway/mvnw
 /ms-api-gateway/mvnw
+
+/ms-auth/.mvn/
+/ms-auth/.mvn/wrapper
+/ms-auth/.classpath
+/ms-auth/.gitattributes
+/ms-auth/.gitignore
+/ms-auth/mvnw.cmd
+/ms-auth/mvnw
+/ms-auth/mvnw

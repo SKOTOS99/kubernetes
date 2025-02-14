@@ -15,6 +15,7 @@
 	<module>ms-usuarios</module>
       <module>ms-cursos</module>
       <module>ms-api-gateway</module>
+      <module>ms-auth</module>
   </modules>
   
 </project>
