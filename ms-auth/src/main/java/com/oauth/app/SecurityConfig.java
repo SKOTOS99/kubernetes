@@ -104,12 +104,12 @@ public class SecurityConfig {
     @Bean
     public RegisteredClientRepository registeredClientRepository() {
         RegisteredClient oidcClient = RegisteredClient.withId(UUID.randomUUID().toString())
-                .clientId("oidc-client")
+                .clientId("usuarios-client")
                 .clientSecret("{noop}1234")
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-                .redirectUri("http://127.0.0.1:8001/login/oauth2/code/oidc-client")
+                .redirectUri("http://127.0.0.1:8001/login/oauth2/code/ms-usuarios-client")
                 .postLogoutRedirectUri("http://127.0.0.1:8001/")
                 .scope(OidcScopes.OPENID)
                 .scope(OidcScopes.PROFILE)
