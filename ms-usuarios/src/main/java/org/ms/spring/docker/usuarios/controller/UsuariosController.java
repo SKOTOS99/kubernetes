@@ -111,4 +111,9 @@ public class UsuariosController {
         return ResponseEntity.ok(service.listarPorIds(ids));
     }
 
+    @GetMapping(value="/")
+    public Map<String, Object> authorize(@RequestParam(name = "code") String code){
+        return Collections.singletonMap("code", code);
+    }
+
 }
